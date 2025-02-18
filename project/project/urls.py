@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from music.views import index, artist_detail
+from music.views import index, artist_detail, add_album, delete_album
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('artist/<int:artist_id>/', artist_detail, name='artist_detail'),
+    path('artist/<int:artist_id>/add_album/', add_album, name='add_album'),
+    path('album/<int:album_id>/delete/', delete_album, name='delete_album'),
 ]

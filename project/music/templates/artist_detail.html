@@ -12,24 +12,20 @@
             background-color: #f4f4f4;
             color: #333;
         }
-        
         header {
             background-color: #1e3d58;
             color: white;
             padding: 20px;
             text-align: center;
         }
-        
         h1 {
             margin: 0;
             font-size: 36px;
         }
-        
         p {
             font-size: 18px;
             margin-top: 10px;
         }
-        
         .back-button {
             position: absolute;
             top: 50px;
@@ -45,11 +41,9 @@
             justify-content: center;
             align-items: center;
         }
-        
         .back-button:hover {
             background-color: #34495e;
         }
-        
         .albums {
             margin: 20px auto;
             max-width: 800px;
@@ -58,17 +52,14 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
         .albums h2 {
             margin-top: 0;
             color: #1e3d58;
         }
-        
         .album-list {
             list-style-type: none;
             padding: 0;
         }
-        
         .album-list li {
             background-color: #e9eff1;
             padding: 10px;
@@ -77,27 +68,44 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease;
         }
-        
         .album-list li:hover {
             background-color: #d0e1e8;
         }
-        
         .album-info {
             font-size: 16px;
             color: #555;
         }
-        
         .stars {
             color: #f39c12;
         }
+        .messages {
+            list-style-type: none;
+            padding: 10px;
+        }
+        .messages li {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        .success { background-color: lightgreen; color: green; }
+        .error { background-color: pink; color: red; }
+        .warning { background-color: lightyellow; color: orange; }
     </style>
 </head>
 <body>
     <a href="/" class="back-button">&#8592;</a>
 
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
     <header>
-            <h1>{{ artist.first_name }} {{ artist.last_name }}</h1>
-            <p>Instrument: {{ artist.instrument }}</p>
+        <h1>{{ artist.first_name }} {{ artist.last_name }}</h1>
+        <p>Instrument: {{ artist.instrument }}</p>
     </header>
 
     <div class="albums">
@@ -109,9 +117,11 @@
                     <span class="album-info">({{ album.release_date }}) - 
                         <span class="stars">{{ album.num_stars }} stars</span>
                     </span>
+                    <a href="{% url 'delete_album' album.id %}">Delete</a>
                 </li>
             {% endfor %}
         </ul>
     </div>
+    <a href="{% url 'add_album' artist.id %}">Create album</a>
 </body>
 </html>
