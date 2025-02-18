@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artists</title>
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+<body>
+    <h1>Artists</h1>
+    <div class="card-generator">
+        {% for artist in artists %}
+            <div class="card">
+                <a href="{% url 'artist_detail' artist.id %}">{{ artist.first_name }} {{ artist.last_name }}</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
